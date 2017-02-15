@@ -19,6 +19,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:hint="新闻搜索"
+            android:background="#00000000"
             android:textColorHint="#fff"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true" />

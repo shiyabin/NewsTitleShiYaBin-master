@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import com.bwie.newstitleshiyabin.R;
 import com.bwie.newstitleshiyabin.activity.SouSuo;
+import com.bwie.newstitleshiyabin.adapter.MyPullAdapter;
 import com.bwie.newstitleshiyabin.adapter.MytitleAdapter;
 
 import java.util.ArrayList;
@@ -74,6 +75,5 @@ public class Fragment_XW extends Fragment {
 
     }
 
-    private class TitleFragment {
-    }
+
 }
