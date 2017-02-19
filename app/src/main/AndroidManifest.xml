@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bwie.newstitleshiyabin">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".Application.MyApplication"
+        android:name=".Application.Application"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/icon"
+        android:label="今日头条"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Main2Activity" />
-
+        <activity android:name=".activity.Main2Activity"  />
         <activity android:name=".activity.Main3Activity" />
-        <activity android:name=".activity.SouSuo"></activity>
+        <activity android:name=".activity.SouSuo" />
+        <activity android:name=".activity.Login_DengLu"></activity>
+        <activity android:name=".activity.Account_Password_DengLu"></activity>
+        <activity android:name=".activity.Found_password"></activity>
+        <activity android:name=".activity.WebViewActivity"></activity>
     </application>
 
 </manifest>

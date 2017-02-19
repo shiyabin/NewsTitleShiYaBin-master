@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 1. 类的用途
+ * 1. 类的用途 ： 首页
  * 2. @author Administrator
  * 3. @date 2017/2/10 12:15
  */
@@ -28,8 +28,9 @@ import java.util.List;
 
 public class Fragment_XW extends Fragment {
 
-    private String[] title = {"推荐", "视频", "热点", "本地", "社会", "娱乐", "图片", "汽车", "体育", "财经", "国际", "健康"};
 
+    private String[] title = {"推荐", "足球", "娱乐", "体育", "财经", "科技", "电影", "汽车"};
+    private String[] str = {"T1348647909107", "T1399700447917", "T1348648517839", "T1348649079062", "T1348648756099", "T1348649580692", "T1348648650048", "T1348654060988"};
     private View view;
     private EditText fragXwEt;
     private ViewPager frag_xw_vp;
@@ -41,7 +42,7 @@ public class Fragment_XW extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_xw, null);
-        kongjian();
+        initView();
         buju();
 
         return view;
@@ -53,6 +54,10 @@ public class Fragment_XW extends Fragment {
         list = new ArrayList<Fragment>();
         for (int i = 0; i < title.length; i++) {
             com.bwie.newstitleshiyabin.fragment.TitleFragment fragment = new com.bwie.newstitleshiyabin.fragment.TitleFragment();
+            Bundle bun = new Bundle();
+            bun.putString("id",str[i]);
+            fragment.setArguments(bun);
+
 
             list.add(fragment);
         }
@@ -63,7 +68,7 @@ public class Fragment_XW extends Fragment {
         frag_xw_tl.setupWithViewPager(frag_xw_vp);
     }
 
-    private void kongjian() {
+    private void initView() {
         fragXwEt = (EditText) view.findViewById(R.id.frag_xw_et);
         fragXwEt.setOnClickListener(new View.OnClickListener() {
             @Override

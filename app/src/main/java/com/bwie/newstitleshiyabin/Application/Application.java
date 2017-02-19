@@ -1,6 +1,18 @@
 package com.bwie.newstitleshiyabin.Application;
 
+import android.graphics.Bitmap;
+
+import com.bwie.newstitleshiyabin.R;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import org.xutils.x;
+
 import java.util.Date;
+
+import static android.R.attr.hardwareAccelerated;
 
 /**
  * 1. 类的用途
@@ -9,18 +21,31 @@ import java.util.Date;
  */
 
 
-public class Application {
-    private static int pageSize = 10;
-    public static final String APP_KEY = "a0f19c0e92c82045c9cc4f7e716e6c33";
-    public static final String URL_PICTURE = "http://japi.juhe.cn/joke/content/list.from?key="+APP_KEY;
+public class Application extends android.app.Application{
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        x.Ext.init(this);
 
 
-    public static String getUrl(int currentPage) {
-        String url = URL_PICTURE + "&page="+currentPage+"&pagesize="+pageSize+"&sort=asc&time="+"1418816972";
-        return url;
-    }
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .displayer(new RoundedBitmapDisplayer(20))
+                .showImageOnFail(R.mipmap.ic_launcher)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
 
-    public static String getTimeStr() {
-        return String.valueOf(new Date().getTime()).substring(0,10);
+
+        //这样自定义设置后就可以管理二级缓存和三级缓存了
+        ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(this)
+                .memoryCacheSizePercentage(20)//设置占用内存的百分比
+                .diskCacheFileCount(100)//设置最大下载图片数
+                .diskCacheSize(5 * 1024 * 1024)
+                .defaultDisplayImageOptions(options)
+                .build();
+
+        ImageLoader.getInstance().init(configuration);//初始化完成
     }
 }
