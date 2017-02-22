@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -17,6 +16,7 @@ import com.bwie.newstitleshiyabin.fragment.Fragment_FA;
 import com.bwie.newstitleshiyabin.fragment.Fragment_SP;
 import com.bwie.newstitleshiyabin.fragment.Fragment_WD;
 import com.bwie.newstitleshiyabin.fragment.Fragment_XW;
+import com.slidingmenu.lib.SlidingMenu;
 
 /**
  * 主界面
@@ -74,10 +74,15 @@ public class Main3Activity extends FragmentActivity implements View.OnClickListe
         ffx = new Fragment_FA();
         fwd = new Fragment_WD();
 
+
         //默认选择Fragment1
         getSupportFragmentManager().beginTransaction().replace(R.id.fl,fxw).commit();
 
+
+
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -180,5 +185,12 @@ public class Main3Activity extends FragmentActivity implements View.OnClickListe
 
                 break;
         }
+      //  setSlidingmenu();
+
+
+    }
+    //侧滑
+    private void setSlidingmenu() {
+
     }
 }

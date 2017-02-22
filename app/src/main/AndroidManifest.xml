@@ -2,14 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bwie.newstitleshiyabin">
 
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".Application.Application"
+        android:hardwareAccelerated="true"
         android:allowBackup="true"
         android:icon="@drawable/icon"
-        android:label="今日头条"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity">
@@ -26,6 +28,8 @@
         <activity android:name=".activity.Account_Password_DengLu"></activity>
         <activity android:name=".activity.Found_password"></activity>
         <activity android:name=".activity.WebViewActivity"></activity>
+
+
     </application>
 
 </manifest>

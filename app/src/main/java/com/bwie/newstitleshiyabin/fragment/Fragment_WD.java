@@ -12,17 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bwie.newstitleshiyabin.R;
 import com.bwie.newstitleshiyabin.activity.Login_DengLu;
 import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 1. 类的用途 ： 注册登录页面
@@ -40,17 +38,28 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
     private ImageView wd_wx;
     private ImageView wd_qq;
     private ImageView wd_jt;
+    private LinearLayout wd_yj;
+    private LinearLayout wd_ls;
+    private LinearLayout wd_sc;
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
+
         view = inflater.inflate(R.layout.fragment_wd,null);
         wd_lv = (ListView) view.findViewById(R.id.wd_lv);
         wd_lv.setAdapter( new Myadapter());
         initView();
+
 
         return view;
     }
@@ -61,12 +70,21 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
         wd_qq = (ImageView) view.findViewById(R.id.wd_qq);
         wd_jt = (ImageView) view.findViewById(R.id.wd_jt);
 
+        wd_yj = (LinearLayout) view.findViewById(R.id.wd_yj);
+        wd_ls = (LinearLayout) view.findViewById(R.id.wd_ls);
+        wd_sc = (LinearLayout) view.findViewById(R.id.wd_sc);
+
+
         wd_dx.setOnClickListener(this);
         wd_wx.setOnClickListener(this);
         wd_qq.setOnClickListener(this);
         wd_jt.setOnClickListener(this);
 
+        wd_yj.setOnClickListener(this);
+
+
     }
+
 
     @Override
     public void onClick(View v) {
@@ -83,8 +101,13 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
             case R.id.wd_jt:
                 Jump(new Login_DengLu());
                 break;
+            case R.id.wd_yj:
+
+
+                break;
 
         }
+
 
     }
 
@@ -137,4 +160,6 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
         Intent intent = new Intent(getActivity(), a.getClass());
         startActivity(intent);
     }
+
+
 }
