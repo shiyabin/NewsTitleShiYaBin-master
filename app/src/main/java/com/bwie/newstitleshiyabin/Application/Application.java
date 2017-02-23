@@ -1,6 +1,7 @@
 package com.bwie.newstitleshiyabin.Application;
 
 import android.graphics.Bitmap;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.bwie.newstitleshiyabin.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -26,7 +27,9 @@ public class Application extends android.app.Application{
     @Override
     public void onCreate() {
         super.onCreate();
+
         x.Ext.init(this);
+
 
 
         DisplayImageOptions options = new DisplayImageOptions.Builder()
@@ -47,5 +50,10 @@ public class Application extends android.app.Application{
                 .build();
 
         ImageLoader.getInstance().init(configuration);//初始化完成
+
+
+        AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO);
     }
-}
+    }
+

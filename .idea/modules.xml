@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/NewsTitleShiYaBin-master.iml" filepath="$PROJECT_DIR$/NewsTitleShiYaBin-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sliding_meun/sliding_meun.iml" filepath="$PROJECT_DIR$/sliding_meun/sliding_meun.iml" />
+      <module fileurl="file://$PROJECT_DIR$/slingMenulibrary/slingMenulibrary.iml" filepath="$PROJECT_DIR$/slingMenulibrary/slingMenulibrary.iml" />
     </modules>
   </component>
 </project>

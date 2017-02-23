@@ -2,15 +2,19 @@ package com.bwie.newstitleshiyabin.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -18,8 +22,13 @@ import android.widget.TextView;
 
 import com.bwie.newstitleshiyabin.R;
 import com.bwie.newstitleshiyabin.activity.Login_DengLu;
+import com.bwie.newstitleshiyabin.activity.Main3Activity;
+import com.bwie.newstitleshiyabin.bean.Night;
 import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -38,22 +47,19 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
     private ImageView wd_wx;
     private ImageView wd_qq;
     private ImageView wd_jt;
-    private LinearLayout wd_yj;
     private LinearLayout wd_ls;
     private LinearLayout wd_sc;
+    private LinearLayout wd_yj;
+    private Main3Activity activity;
+    private static String gAppid = "1105924500";
+    private Tencent tencent;
 
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
+        activity = (Main3Activity) getActivity();
 
         view = inflater.inflate(R.layout.fragment_wd,null);
         wd_lv = (ListView) view.findViewById(R.id.wd_lv);
@@ -70,17 +76,20 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
         wd_qq = (ImageView) view.findViewById(R.id.wd_qq);
         wd_jt = (ImageView) view.findViewById(R.id.wd_jt);
 
-        wd_yj = (LinearLayout) view.findViewById(R.id.wd_yj);
+
         wd_ls = (LinearLayout) view.findViewById(R.id.wd_ls);
         wd_sc = (LinearLayout) view.findViewById(R.id.wd_sc);
+        wd_yj = (LinearLayout) view.findViewById(R.id.wd_yj);
+        wd_yj = (LinearLayout) view.findViewById(R.id.wd_yj);
 
 
         wd_dx.setOnClickListener(this);
         wd_wx.setOnClickListener(this);
         wd_qq.setOnClickListener(this);
         wd_jt.setOnClickListener(this);
-
         wd_yj.setOnClickListener(this);
+
+        tencent = Tencent.createInstance(gAppid,getActivity());
 
 
     }
@@ -96,19 +105,42 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
             case R.id.wd_wx:
                 break;
             case R.id.wd_qq:
-
+                tencent.login(getActivity(), "all", new BaseUiListener());
                 break;
             case R.id.wd_jt:
                 Jump(new Login_DengLu());
                 break;
             case R.id.wd_yj:
-
-
+                int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                activity.getDelegate().setLocalNightMode(currentNightMode == Configuration.UI_MODE_NIGHT_NO
+                        ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+                // 同样需要调用recreate方法使之生效
+                recreate();
                 break;
+
 
         }
 
 
+    }
+    private class BaseUiListener implements IUiListener {
+        @Override
+        public void onComplete(Object o) {
+            Log.d("zzz", "onComplete: " + SystemClock.elapsedRealtime());
+        }
+
+        @Override
+        public void onError(UiError uiError) {
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+    }
+
+    private void recreate() {
     }
 
     class  Myadapter extends BaseAdapter{
@@ -133,27 +165,10 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
             View v=LayoutInflater.from(getActivity()).inflate(R.layout.wd_inte,null);
             TextView wd_tv= (TextView) v.findViewById(R.id.wd_tv);
             wd_tv.setText(textLv[position]);
-
-
             return v;
         }
     };
-    private class BaseUiListener implements IUiListener {
-        @Override
-        public void onComplete(Object o) {
-            Log.d("zzz", "onComplete: " + SystemClock.elapsedRealtime());
-        }
 
-        @Override
-        public void onError(UiError uiError) {
-        }
-
-        @Override
-        public void onCancel() {
-
-        }
-
-    }
 
 
     private void Jump(Activity a) {

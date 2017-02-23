@@ -5,24 +5,34 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.LoginFilter;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bwie.newstitleshiyabin.R;
+import com.bwie.newstitleshiyabin.bean.Night;
 import com.bwie.newstitleshiyabin.fragment.Fragment_FA;
 import com.bwie.newstitleshiyabin.fragment.Fragment_SP;
 import com.bwie.newstitleshiyabin.fragment.Fragment_WD;
 import com.bwie.newstitleshiyabin.fragment.Fragment_XW;
-import com.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 
 /**
  * 主界面
  */
 
-public class Main3Activity extends FragmentActivity implements View.OnClickListener {
+public class Main3Activity extends AppCompatActivity implements View.OnClickListener {
 
 
     private ImageView iv_xw;
@@ -41,14 +51,22 @@ public class Main3Activity extends FragmentActivity implements View.OnClickListe
     private Fragment_SP fsp;
     private Fragment_FA ffx;
     private Fragment_WD fwd;
+    private Button wdBut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main3);
 
         //初始化控件
+        initView();
+        //侧滑
+        setSlidingmenu();
+
+    }
+
+
+    private void initView() {
         btn_xw = (LinearLayout) findViewById(R.id.btn_xw);
         btn_sp = (LinearLayout) findViewById(R.id.btn_sp);
         btn_fx = (LinearLayout) findViewById(R.id.btn_fx);
@@ -77,13 +95,9 @@ public class Main3Activity extends FragmentActivity implements View.OnClickListe
 
         //默认选择Fragment1
         getSupportFragmentManager().beginTransaction().replace(R.id.fl,fxw).commit();
-
-
-
     }
 
-
-
+    //fragment切换
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -185,12 +199,26 @@ public class Main3Activity extends FragmentActivity implements View.OnClickListe
 
                 break;
         }
-      //  setSlidingmenu();
+
 
 
     }
     //侧滑
     private void setSlidingmenu() {
+        SlidingMenu menu = new SlidingMenu(this);
+        menu.setMode(SlidingMenu.LEFT);
+        // 设置触摸屏幕的模式
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        menu.setShadowWidthRes(R.dimen.shadow_width);
+        menu.setShadowDrawable(R.color.colorAccent);
+        // 设置滑动菜单视图的宽度
+        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        // 设置渐入渐出效果的值
+        menu.setFadeDegree(0.35f);
+        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        //为侧滑菜单设置布局
+           menu.setMenu(R.layout.main3_cehua);
 
     }
+
 }

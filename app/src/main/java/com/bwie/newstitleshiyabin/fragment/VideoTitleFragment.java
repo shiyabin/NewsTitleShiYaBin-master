@@ -146,13 +146,14 @@ public class VideoTitleFragment extends Fragment implements PullToRefreshBase.On
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView = View.inflate(getActivity(),R.layout.video_item,null);
             JCVideoPlayer jc = (JCVideoPlayer)convertView.findViewById(R.id.jc_Video);
-            ImageView image = (ImageView)convertView.findViewById(R.id.image_Video);
+
             TextView name = (TextView)convertView.findViewById(R.id.name_Video);
             TextView count = (TextView)convertView.findViewById(R.id.count_Video);
             //设置视频和标头
           jc.setUp(videoList.get(position).getMp4_url(),videoList.get(position).getTitle());
             //图片加载
-            ImageLoader.getInstance().displayImage(videoList.get(position).getTopicImg(),image,options);
+            jc.ivThumb.setScaleType(ImageView.ScaleType.FIT_XY);
+            ImageLoader.getInstance().displayImage(videoList.get(position).getTopicImg(),jc.ivThumb,options);
             //名字
             name.setText(videoList.get(position).getTopicName());
             //次数
