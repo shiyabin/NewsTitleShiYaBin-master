@@ -1,6 +1,10 @@
 package com.bwie.newstitleshiyabin.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -10,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.bwie.newstitleshiyabin.R;
 import com.bwie.newstitleshiyabin.activity.SouSuo;
@@ -42,8 +47,13 @@ public class Fragment_XW extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_xw, null);
-        initView();
-        buju();
+        //网络判断
+        if(isNetworkAvailable(getActivity())) {
+            initView();
+            buju();
+        } else {
+            Toast.makeText(getActivity(), "没有可用的网络",Toast.LENGTH_SHORT).show();
+        }
 
         return view;
     }
@@ -78,6 +88,35 @@ public class Fragment_XW extends Fragment {
             }
         });
 
+    }
+
+    // 判断当前是否有可用的网络
+    public boolean isNetworkAvailable(Activity activity) {
+        Context context = activity.getApplicationContext();
+        // 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (connectivityManager == null) {
+            return false;
+        } else {
+            // 获取NetworkInfo对象
+            NetworkInfo[] networkInfo = connectivityManager.getAllNetworkInfo();
+
+            if (networkInfo != null && networkInfo.length > 0) {
+                for (int i = 0; i < networkInfo.length; i++) {
+                    System.out.println(i + "===状态==="
+                            + networkInfo[i].getState());
+                    System.out.println(i + "===类型==="
+                            + networkInfo[i].getTypeName());
+                    // 判断当前网络状态是否为连接状态
+                    if (networkInfo[i].getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 

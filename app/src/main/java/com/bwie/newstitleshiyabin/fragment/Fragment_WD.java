@@ -1,8 +1,11 @@
 package com.bwie.newstitleshiyabin.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
@@ -13,14 +16,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bwie.newstitleshiyabin.R;
+import com.bwie.newstitleshiyabin.activity.Account_Password_DengLu;
 import com.bwie.newstitleshiyabin.activity.Login_DengLu;
 import com.bwie.newstitleshiyabin.activity.Main3Activity;
 import com.bwie.newstitleshiyabin.bean.Night;
@@ -64,6 +70,20 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_wd,null);
         wd_lv = (ListView) view.findViewById(R.id.wd_lv);
         wd_lv.setAdapter( new Myadapter());
+
+        wd_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (isNetworkAvailable(getActivity())) {
+                    Intent intent = new Intent(getActivity(), Account_Password_DengLu.class);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getActivity(), "没有可用的网络，请先连接网络",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
         initView();
 
 
@@ -100,12 +120,20 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
 
         switch (v.getId()){
             case R.id.wd_dx:
-                Jump(new Login_DengLu());
+                if (isNetworkAvailable(getActivity())) {
+                    Jump(new Login_DengLu());
+                }else {
+                    Toast.makeText(getActivity(), "没有可用的网络，不能注册",Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.wd_wx:
                 break;
             case R.id.wd_qq:
-                tencent.login(getActivity(), "all", new BaseUiListener());
+                if(isNetworkAvailable(getActivity())) {
+                    tencent.login(getActivity(), "all", new BaseUiListener());
+                }else {
+                    Toast.makeText(getActivity(), "没有可用的网络，不能登录",Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.wd_jt:
                 Jump(new Login_DengLu());
@@ -174,6 +202,35 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
     private void Jump(Activity a) {
         Intent intent = new Intent(getActivity(), a.getClass());
         startActivity(intent);
+    }
+
+
+    public boolean isNetworkAvailable(Activity activity) {
+        Context context = activity.getApplicationContext();
+        // 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (connectivityManager == null) {
+            return false;
+        } else {
+            // 获取NetworkInfo对象
+            NetworkInfo[] networkInfo = connectivityManager.getAllNetworkInfo();
+
+            if (networkInfo != null && networkInfo.length > 0) {
+                for (int i = 0; i < networkInfo.length; i++) {
+                    System.out.println(i + "===状态==="
+                            + networkInfo[i].getState());
+                    System.out.println(i + "===类型==="
+                            + networkInfo[i].getTypeName());
+                    // 判断当前网络状态是否为连接状态
+                    if (networkInfo[i].getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 

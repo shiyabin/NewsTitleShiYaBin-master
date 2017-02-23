@@ -1,6 +1,10 @@
 package com.bwie.newstitleshiyabin.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bwie.newstitleshiyabin.R;
 import com.bwie.newstitleshiyabin.bean.Night;
@@ -58,10 +63,15 @@ public class Main3Activity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
-        //初始化控件
-        initView();
-        //侧滑
-        setSlidingmenu();
+
+
+            //初始化控件
+            initView();
+            //侧滑
+            //setSlidingmenu();
+
+
+
 
     }
 
@@ -220,5 +230,8 @@ public class Main3Activity extends AppCompatActivity implements View.OnClickList
            menu.setMenu(R.layout.main3_cehua);
 
     }
+
+
+
 
 }
