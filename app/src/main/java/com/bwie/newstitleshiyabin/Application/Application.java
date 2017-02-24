@@ -24,12 +24,14 @@ import static android.R.attr.hardwareAccelerated;
 
 public class Application extends android.app.Application{
 
+    public static boolean isFlag;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         x.Ext.init(this);
-
+        isFlag=true;
 
 
         DisplayImageOptions options = new DisplayImageOptions.Builder()

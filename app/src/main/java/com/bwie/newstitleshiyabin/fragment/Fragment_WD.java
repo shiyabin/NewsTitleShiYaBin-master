@@ -27,8 +27,10 @@ import android.widget.Toast;
 
 import com.bwie.newstitleshiyabin.R;
 import com.bwie.newstitleshiyabin.activity.Account_Password_DengLu;
+import com.bwie.newstitleshiyabin.activity.Collect_Activity;
 import com.bwie.newstitleshiyabin.activity.Login_DengLu;
 import com.bwie.newstitleshiyabin.activity.Main3Activity;
+import com.bwie.newstitleshiyabin.activity.ReadActivity;
 import com.bwie.newstitleshiyabin.bean.Night;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
@@ -100,7 +102,7 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
         wd_ls = (LinearLayout) view.findViewById(R.id.wd_ls);
         wd_sc = (LinearLayout) view.findViewById(R.id.wd_sc);
         wd_yj = (LinearLayout) view.findViewById(R.id.wd_yj);
-        wd_yj = (LinearLayout) view.findViewById(R.id.wd_yj);
+
 
 
         wd_dx.setOnClickListener(this);
@@ -108,6 +110,7 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
         wd_qq.setOnClickListener(this);
         wd_jt.setOnClickListener(this);
         wd_yj.setOnClickListener(this);
+        wd_sc.setOnClickListener(this);
 
         tencent = Tencent.createInstance(gAppid,getActivity());
 
@@ -128,6 +131,7 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
                 break;
             case R.id.wd_wx:
                 break;
+
             case R.id.wd_qq:
                 if(isNetworkAvailable(getActivity())) {
                     tencent.login(getActivity(), "all", new BaseUiListener());
@@ -137,6 +141,14 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
                 break;
             case R.id.wd_jt:
                 Jump(new Login_DengLu());
+                break;
+            case R.id.wd_sc:
+                Intent i=new Intent(getActivity(), Collect_Activity.class);
+                startActivity(i);
+                break;
+            case R.id.wd_ls:
+                Intent inte=new Intent(getActivity(), ReadActivity.class);
+                startActivity(inte);
                 break;
             case R.id.wd_yj:
                 int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -151,6 +163,7 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
 
 
     }
+    //QQ第三方登录
     private class BaseUiListener implements IUiListener {
         @Override
         public void onComplete(Object o) {
@@ -205,6 +218,7 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
     }
 
 
+    //网络判断
     public boolean isNetworkAvailable(Activity activity) {
         Context context = activity.getApplicationContext();
         // 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）

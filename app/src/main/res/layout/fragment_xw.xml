@@ -10,31 +10,41 @@
         android:background="@drawable/sousuo"
         >
 
-        <EditText
+        <TextView
             android:id="@+id/frag_xw_et"
-            android:layout_width="150dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_marginEnd="20dp"
+            android:text="新闻搜索"
+            android:background="#fff"
+            android:layout_marginRight="23dp"
+            android:layout_marginEnd="23dp"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:hint="新闻搜索"
-            android:background="#00000000"
-            android:textColorHint="#fff"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="46dp"
+    android:orientation="horizontal">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/frag_xw_tl"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="8"
         android:layout_height="46dp"
         app:tabSelectedTextColor="@android:color/holo_red_dark"
         app:tabIndicatorColor="@null">
 
     </android.support.design.widget.TabLayout>
+    <ImageView
+        android:id="@+id/xwjia"
+        android:layout_marginTop="9dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="25dp"
+        android:src="@drawable/xwjia"/>
+</LinearLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/frag_xw_vp"

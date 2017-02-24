@@ -1,36 +1,27 @@
 package com.bwie.newstitleshiyabin.activity;
 
-import android.app.Activity;
-import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.support.v4.app.FragmentActivity;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.LoginFilter;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bwie.newstitleshiyabin.Application.Application;
 import com.bwie.newstitleshiyabin.R;
-import com.bwie.newstitleshiyabin.bean.Night;
 import com.bwie.newstitleshiyabin.fragment.Fragment_FA;
 import com.bwie.newstitleshiyabin.fragment.Fragment_SP;
 import com.bwie.newstitleshiyabin.fragment.Fragment_WD;
 import com.bwie.newstitleshiyabin.fragment.Fragment_XW;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -56,23 +47,38 @@ public class Main3Activity extends AppCompatActivity implements View.OnClickList
     private Fragment_SP fsp;
     private Fragment_FA ffx;
     private Fragment_WD fwd;
-    private Button wdBut;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
-
-
-
             //初始化控件
             initView();
             //侧滑
             //setSlidingmenu();
+        FragmentManager manager1 = getSupportFragmentManager();
+        if (Application.isFlag){
 
+            FragmentTransaction transaction1 = manager1.beginTransaction();
 
+            transaction1.replace(R.id.fl,fxw);
 
+            transaction1.commit();
 
+            tv_xw.setTextColor(Color.RED);
+
+            Application.isFlag=false;
+        }
+        else {
+            FragmentTransaction transaction1 = manager1.beginTransaction();
+
+            transaction1.replace(R.id.fl,fxw);
+
+            transaction1.commit();
+
+            tv_xw.setTextColor(Color.RED);
+        }
     }
 
 
@@ -230,8 +236,5 @@ public class Main3Activity extends AppCompatActivity implements View.OnClickList
            menu.setMenu(R.layout.main3_cehua);
 
     }
-
-
-
 
 }

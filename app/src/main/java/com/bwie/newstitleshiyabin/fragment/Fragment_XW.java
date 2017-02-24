@@ -14,9 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bwie.newstitleshiyabin.R;
+import com.bwie.newstitleshiyabin.activity.Channel_Activity;
 import com.bwie.newstitleshiyabin.activity.SouSuo;
 import com.bwie.newstitleshiyabin.adapter.MyPullAdapter;
 import com.bwie.newstitleshiyabin.adapter.MytitleAdapter;
@@ -37,11 +40,12 @@ public class Fragment_XW extends Fragment {
     private String[] title = {"推荐", "足球", "娱乐", "体育", "财经", "科技", "电影", "汽车"};
     private String[] str = {"T1348647909107", "T1399700447917", "T1348648517839", "T1348649079062", "T1348648756099", "T1348649580692", "T1348648650048", "T1348654060988"};
     private View view;
-    private EditText fragXwEt;
+    private TextView fragXwEt;
     private ViewPager frag_xw_vp;
 
     private List<Fragment> list;
     private TabLayout frag_xw_tl;
+    private ImageView xwjia;
 
     @Nullable
     @Override
@@ -61,6 +65,8 @@ public class Fragment_XW extends Fragment {
     private void buju() {
         frag_xw_vp = (ViewPager) view.findViewById(R.id.frag_xw_vp);
         frag_xw_tl = (TabLayout) view.findViewById(R.id.frag_xw_tl);
+        xwjia = (ImageView) view.findViewById(R.id.xwjia);
+
         list = new ArrayList<Fragment>();
         for (int i = 0; i < title.length; i++) {
             com.bwie.newstitleshiyabin.fragment.TitleFragment fragment = new com.bwie.newstitleshiyabin.fragment.TitleFragment();
@@ -76,10 +82,19 @@ public class Fragment_XW extends Fragment {
         frag_xw_vp.setAdapter(adapter);
         frag_xw_tl.setTabMode(TabLayout.MODE_SCROLLABLE);
         frag_xw_tl.setupWithViewPager(frag_xw_vp);
+
+        xwjia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), Channel_Activity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initView() {
-        fragXwEt = (EditText) view.findViewById(R.id.frag_xw_et);
+        fragXwEt = (TextView) view.findViewById(R.id.frag_xw_et);
         fragXwEt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

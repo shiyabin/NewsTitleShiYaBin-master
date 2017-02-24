@@ -45,14 +45,14 @@ public class TitleFragment extends Fragment implements PullToRefreshExpandableLi
     private PullToRefreshListView ptrl;
     private MyPullAdapter adapter;
     private int num = 0;
-    private String id;
+//    private String id;
 
     //传值
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        id = bundle.getString("id");
+//        Bundle bundle = getArguments();
+//        id = bundle.getString("id");
     }
 
     @Nullable
@@ -72,7 +72,7 @@ public class TitleFragment extends Fragment implements PullToRefreshExpandableLi
         adapter = new MyPullAdapter(getActivity());
         ptrl.setAdapter(adapter);
 
-        HttPData.getData(id,num,this);
+        HttPData.getData(getArguments().getString("id"),num,this);
         ptrl.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -107,7 +107,7 @@ public class TitleFragment extends Fragment implements PullToRefreshExpandableLi
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
         num = 0;
         isNeedClear = true;
-        HttPData.getData(id, num, this);
+        HttPData.getData(getArguments().getString("id"), num, this);
 
     }
 
@@ -116,7 +116,7 @@ public class TitleFragment extends Fragment implements PullToRefreshExpandableLi
 
         num = num + 10;
         isNeedClear = false;
-        HttPData.getData(id, num, this);
+        HttPData.getData(getArguments().getString("id"), num, this);
     }
 
 
