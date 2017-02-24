@@ -7,10 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bwie.newstitleshiyabin.Application.Application;
 import com.bwie.newstitleshiyabin.R;
@@ -47,6 +49,7 @@ public class Main3Activity extends AppCompatActivity implements View.OnClickList
     private Fragment_SP fsp;
     private Fragment_FA ffx;
     private Fragment_WD fwd;
+    private long exitTime = 0;
 
 
     @Override
@@ -71,17 +74,25 @@ public class Main3Activity extends AppCompatActivity implements View.OnClickList
             Application.isFlag=false;
         }
         else {
-            FragmentTransaction transaction1 = manager1.beginTransaction();
-
-            transaction1.replace(R.id.fl,fxw);
-
-            transaction1.commit();
-
             tv_xw.setTextColor(Color.RED);
         }
     }
-
-
+    //两次退出
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if((System.currentTimeMillis()-exitTime) > 2000){
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    //初始化控件
     private void initView() {
         btn_xw = (LinearLayout) findViewById(R.id.btn_xw);
         btn_sp = (LinearLayout) findViewById(R.id.btn_sp);
@@ -112,7 +123,6 @@ public class Main3Activity extends AppCompatActivity implements View.OnClickList
         //默认选择Fragment1
         getSupportFragmentManager().beginTransaction().replace(R.id.fl,fxw).commit();
     }
-
     //fragment切换
     @Override
     public void onClick(View v) {

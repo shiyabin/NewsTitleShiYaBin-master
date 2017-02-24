@@ -46,6 +46,8 @@ public class VideoTitleFragment extends Fragment implements PullToRefreshBase.On
     private PullToRefreshListView xListView;
     private MyVideoAdapter adapter;
     private DisplayImageOptions options;
+    private int num = 0;
+    private  boolean isNeedClear;
 
     public VideoTitleFragment() {
         options = new DisplayImageOptions.Builder()
@@ -102,6 +104,9 @@ public class VideoTitleFragment extends Fragment implements PullToRefreshBase.On
 
                 List<VideoBean> list = map.get(mId);
                 Log.d("zzz","list: "+ list.toString());
+                if (isNeedClear){
+                    videoList.clear();
+                }
                 videoList.addAll(list);
                 Log.d("zzz","videoList: "+ videoList.toString());
             }
@@ -150,25 +155,32 @@ public class VideoTitleFragment extends Fragment implements PullToRefreshBase.On
             TextView name = (TextView)convertView.findViewById(R.id.name_Video);
             TextView count = (TextView)convertView.findViewById(R.id.count_Video);
             //设置视频和标头
-          jc.setUp(videoList.get(position).getMp4_url(),videoList.get(position).getTitle());
+            jc.setUp(videoList.get(position).getMp4_url(),videoList.get(position).getTitle());
             //图片加载
             jc.ivThumb.setScaleType(ImageView.ScaleType.FIT_XY);
-            ImageLoader.getInstance().displayImage(videoList.get(position).getTopicImg(),jc.ivThumb,options);
+            ImageLoader.getInstance().displayImage(videoList.get(position).getCover(),jc.ivThumb,options);
             //名字
             name.setText(videoList.get(position).getTopicName());
             //次数
             count.setText(videoList.get(position).getPlayCount());
             return convertView;
         }
+
+
+
     }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-
+        num = 0;
+        isNeedClear = true;
+        setHttp();
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-
+        num = num + 10;
+        isNeedClear = false;
+        setHttp();
     }
 }

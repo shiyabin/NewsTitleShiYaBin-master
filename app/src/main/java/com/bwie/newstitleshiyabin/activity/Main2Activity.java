@@ -18,11 +18,12 @@ public class Main2Activity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-
             Intent i = new Intent(Main2Activity.this, Main3Activity.class);
             startActivity(i);
+            finish();
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
