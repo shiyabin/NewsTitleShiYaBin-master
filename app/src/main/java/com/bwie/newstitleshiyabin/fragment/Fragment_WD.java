@@ -111,6 +111,7 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
         wd_jt.setOnClickListener(this);
         wd_yj.setOnClickListener(this);
         wd_sc.setOnClickListener(this);
+        wd_ls.setOnClickListener(this);
 
         tencent = Tencent.createInstance(gAppid,getActivity());
 
@@ -147,8 +148,8 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
                 startActivity(i);
                 break;
             case R.id.wd_ls:
-                Intent inte=new Intent(getActivity(), ReadActivity.class);
-                startActivity(inte);
+                Intent it=new Intent(getActivity(), ReadActivity.class);
+                startActivity(it);
                 break;
             case R.id.wd_yj:
                 int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -157,11 +158,7 @@ public class Fragment_WD extends Fragment implements  View.OnClickListener {
                 // 同样需要调用recreate方法使之生效
                 recreate();
                 break;
-
-
         }
-
-
     }
     //QQ第三方登录
     private class BaseUiListener implements IUiListener {

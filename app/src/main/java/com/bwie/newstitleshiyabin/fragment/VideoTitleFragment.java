@@ -68,7 +68,7 @@ public class VideoTitleFragment extends Fragment implements PullToRefreshBase.On
         setHttp();
         return view;
     }
-
+    //初始化控件
     private void initView() {
         videoList = new ArrayList<>();
         xListView = (PullToRefreshListView) view.findViewById(R.id.video_shiping);
@@ -92,7 +92,7 @@ public class VideoTitleFragment extends Fragment implements PullToRefreshBase.On
         endLabels.setRefreshingLabel("正在载入...\n" + str);// 刷新时
         endLabels.setReleaseLabel("放开刷新...\n" + str);// 下来达到一定距离时，显示的提示
     }
-
+    //解析数据
     private void setHttp() {
         String url = String.format("http://c.3g.163.com/nc/video/list/%1$s/n/%2$s-10.html", mId, index);
         RequestParams request = new RequestParams(url);
@@ -130,7 +130,7 @@ public class VideoTitleFragment extends Fragment implements PullToRefreshBase.On
             }
         });
     }
-
+    //适配器
     class MyVideoAdapter extends BaseAdapter {
         @Override
         public int getCount() {

@@ -61,21 +61,6 @@ public class Main3Activity extends AppCompatActivity implements View.OnClickList
             //侧滑
             //setSlidingmenu();
         FragmentManager manager1 = getSupportFragmentManager();
-        if (Application.isFlag){
-
-            FragmentTransaction transaction1 = manager1.beginTransaction();
-
-            transaction1.replace(R.id.fl,fxw);
-
-            transaction1.commit();
-
-            tv_xw.setTextColor(Color.RED);
-
-            Application.isFlag=false;
-        }
-        else {
-            tv_xw.setTextColor(Color.RED);
-        }
     }
     //两次退出
     @Override
@@ -121,7 +106,12 @@ public class Main3Activity extends AppCompatActivity implements View.OnClickList
 
 
         //默认选择Fragment1
-        getSupportFragmentManager().beginTransaction().replace(R.id.fl,fxw).commit();
+        if(Application.isFlag){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl,fxw).commit();
+            tv_xw.setTextColor(Color.RED);
+
+            Application.isFlag=false;
+        }
     }
     //fragment切换
     @Override

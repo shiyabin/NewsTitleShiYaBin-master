@@ -61,7 +61,7 @@ public class Fragment_XW extends Fragment {
 
         return view;
     }
-
+    //初始化控件
     private void buju() {
         frag_xw_vp = (ViewPager) view.findViewById(R.id.frag_xw_vp);
         frag_xw_tl = (TabLayout) view.findViewById(R.id.frag_xw_tl);
@@ -92,7 +92,7 @@ public class Fragment_XW extends Fragment {
         });
 
     }
-
+    //搜索跳转
     private void initView() {
         fragXwEt = (TextView) view.findViewById(R.id.frag_xw_et);
         fragXwEt.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +104,6 @@ public class Fragment_XW extends Fragment {
         });
 
     }
-
     // 判断当前是否有可用的网络
     public boolean isNetworkAvailable(Activity activity) {
         Context context = activity.getApplicationContext();
